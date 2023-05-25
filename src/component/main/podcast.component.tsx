@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { Entry } from "../../interfaces/query";
-
 import '../../pages/styles/podcastList.sass'
 
 export interface podcastProps {id:string,name:string,author:string,pic:string}
