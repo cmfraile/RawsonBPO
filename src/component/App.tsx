@@ -15,11 +15,7 @@ const App = () => {
     }
   }
 
-  return (
-    <div className="container">
-      {Render()}
-    </div>
-  )
+  return <div className="container">{Render()}</div> 
 
 }
 
