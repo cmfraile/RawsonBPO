@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Main , Detail , PodcastDetail } from "../pages";
+import { Track , Main , PodcastTrackList } from "../pages";
 import { appNavigate, mainContext } from "../context/mainContext";
 
 
@@ -10,8 +10,8 @@ const App = () => {
   const Render = () => {
     switch(navigate){
       case 'main' : return <Main/> ;
-      case 'episodeDetail' : return <Detail/> ;
-      case 'podcastDetail' : return <PodcastDetail/> ;
+      case 'Track' : return <Track/> ;
+      case 'podcastTrackList' : return <PodcastTrackList/> ;
       default : return <></> ;
     }
   }

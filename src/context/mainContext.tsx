@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-export type appNavigate = 'main'|'podcastDetail'|'episodeDetail';
+export type appNavigate = 'main'|'podcastTrackList'|'Track';
 export const mainContext = createContext<any>({});
 export const mainProvider = ({children}:any) => {
 

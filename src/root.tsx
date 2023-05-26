@@ -7,14 +7,16 @@ import App from './component/App';
 import './root.sass';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
-import { PodcastDetail } from './pages';
+import { PodcastTrackList } from './pages/podcastTrackList.page';
+import { Track } from './pages';
 
 const AppWithRoute = () => 
   <BrowserRouter>
     <Routes>
       <Route path=''  element={ <App/> }/>
       <Route path="*" element={ <Navigate to=''/> } />
-      <Route path='podcast' element={ <PodcastDetail/> }/>
+      <Route path='podcast' element={ <PodcastTrackList/> }/>
+      <Route path='track' element={ <Track/> }/>
       
       {/*<Route path='podcast/:podcastID' element={ <Navigate to=''/> } />
       <Route path='podcast/:podcastID/episode/:episodeID' element={ <Navigate to=''/> } />*/}

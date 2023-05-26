@@ -1,6 +1,5 @@
-import Podcaster from "../layout/Podcaster";
-
-import '../pages/styles/podcastDetail.sass'
+import Podcaster from "./Podcaster" ;
+import '../pages/styles/podcastDetail.sass' ;
 
 //Description : Summary -> label
 interface episodes { name:string , link:string , date:Date , duration:string }
@@ -33,12 +32,11 @@ const podcastInDetailPlaceholder:podcastInDetail = {
     episodes:episodesPlaceholder()
 }
 
-const PodcastDetail = ({id}:{id?:string}) => {
+const PodcastDetail = ({children}:any) => {
 
-    const { pic , name , artist , description , episodes } = podcastInDetailPlaceholder ;
+    const { pic , name , artist , description } = podcastInDetailPlaceholder ;
 
     return(
-        <>
         <div className="container">
             <Podcaster>
 
@@ -57,38 +55,14 @@ const PodcastDetail = ({id}:{id?:string}) => {
                         </div>
                     </div>
 
-                    <div className="col-9 episodesList">
-                        <div className="episodesCount">Episodes : {episodes.length}</div>
-                        <div className="tableSquare">
-                        <table className="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th className="col-8">Title</th>
-                                    <th className="col">Date</th>
-                                    <th className="col">Duration</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {episodes.map(x => 
-                                (
-                                    <tr>
-                                        <th><a href={x.link}>{x.name}</a></th>
-                                        <td>{`${x.date.getDay()}/${x.date.getMonth()}/${x.date.getFullYear()}`}</td>
-                                        <td>{x.duration}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <div className="col-9">{children}</div>
 
                 </div>
 
             </Podcaster>
         </div>
-        </>
     )
     
 }
 
-export { PodcastDetail }
+export default PodcastDetail

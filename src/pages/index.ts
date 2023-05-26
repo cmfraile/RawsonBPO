@@ -1,3 +1,3 @@
-export * from './detail.page'
+export * from './track.page'
 export * from './main.page'
-export * from './podcastDetail.page'
+export * from './podcastTrackList.page'

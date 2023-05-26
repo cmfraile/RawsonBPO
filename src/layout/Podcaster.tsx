@@ -11,7 +11,7 @@ const Podcaster = ({children}:any) => {
                 <h3 style={{color:'blue'}}>Podcaster</h3>
                 {(load) && <div className="spinner-border text-info" role="status"/>}
             </div>
-            <hr />
+            <hr style={{margin:'auto',minWidth:'100%'}}/>
             {children}
         </>
         
