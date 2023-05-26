@@ -2,6 +2,7 @@ import { useState , useEffect, useContext } from "react";
 import { mainContext } from "../context/mainContext";
 import { mainInStorage, storage } from "../interfaces/storage";
 import { Entry } from "../interfaces/podcastList";
+import { Result } from "../interfaces/podcastEpisodes";
 
 type method = 'GET'|'POST'|'PUT'|'DELETE';
 interface getFetch {data:any,isLoading:boolean,error:any}
@@ -34,7 +35,9 @@ const storageSave = (data:any,flag:flag|undefined,setState:React.Dispatch<React.
         }
         ; break ;
         case 'podcast' : {
-            const finalData = data.results ;
+            const finalData = data.results.map( (x:Result) => ({
+                trackName:x.trackName,releaseDate:x.releaseDate,trackTimeMillis:x.trackTimeMillis
+            })) ;
             setState({data:finalData,isLoading:false,error:null});
         }
         default : break ;
