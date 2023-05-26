@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "RawsonBPO",
-    "dateExported": "2023-05-26T12:58:08.105Z",
+    "dateExported": "2023-05-26T16:43:07.768Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -28,12 +28,55 @@
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-05-25T16:29:07.006Z",
-            "modified": "2023-05-26T12:53:43.690Z",
+            "modified": "2023-05-26T13:32:57.387Z",
             "headers": [],
             "params": [
                 {
                     "name": "id",
                     "value": "1535809341",
+                    "isPath": false
+                },
+                {
+                    "name": "entity",
+                    "value": "podcast",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "podcast",
+                    "value": "descriptionTheme",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "7ba54c30-2f17-4d40-9a1a-1d450367706d",
+            "colId": "836d283d-a179-4eba-9e46-c904b5301420",
+            "containerId": "",
+            "name": "getPodcast Copy",
+            "url": "https://itunes.apple.com/lookup?id=1535809341&podcast=detail",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-05-26T14:49:57.530Z",
+            "modified": "2023-05-26T14:50:46.245Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "1535809341",
+                    "isPath": false
+                },
+                {
+                    "name": "entity",
+                    "value": "podcast",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "podcast",
+                    "value": "detail",
                     "isPath": false
                 }
             ],
@@ -43,12 +86,12 @@
             "_id": "242dcc6c-8815-4fbf-ae04-3c95a3d9da99",
             "colId": "836d283d-a179-4eba-9e46-c904b5301420",
             "containerId": "",
-            "name": "test",
-            "url": "https://itunes.apple.com/lookup?id=1535809341&media=podcast&entity=podcastEpisode&limit=10",
+            "name": "episodeList",
+            "url": "https://itunes.apple.com/lookup?id=1535809341&media=podcast&entity=podcastEpisode",
             "method": "GET",
             "sortNum": 40000,
             "created": "2023-05-26T10:05:24.483Z",
-            "modified": "2023-05-26T12:57:28.997Z",
+            "modified": "2023-05-26T13:32:44.734Z",
             "headers": [],
             "params": [
                 {
@@ -67,8 +110,45 @@
                     "isPath": false
                 },
                 {
-                    "name": "limit",
-                    "value": "10",
+                    "name": "podcast",
+                    "value": "descriptionTheme",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "747e0a84-d280-4e08-a39d-3fa308e8d0f3",
+            "colId": "836d283d-a179-4eba-9e46-c904b5301420",
+            "containerId": "",
+            "name": "episodeList Copy",
+            "url": "https://itunes.apple.com/lookup?id=1535809341&media=track&entity=podcastEpisode",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-05-26T14:53:41.025Z",
+            "modified": "2023-05-26T14:53:51.690Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "1535809341",
+                    "isPath": false
+                },
+                {
+                    "name": "media",
+                    "value": "track",
+                    "isPath": false
+                },
+                {
+                    "name": "entity",
+                    "value": "podcastEpisode",
+                    "isPath": false
+                },
+                {
+                    "name": "podcast",
+                    "value": "descriptionTheme",
+                    "isDisabled": true,
                     "isPath": false
                 }
             ],
