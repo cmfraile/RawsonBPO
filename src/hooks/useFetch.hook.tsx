@@ -1,6 +1,7 @@
 import { useState , useEffect, useContext } from "react";
 import { mainContext } from "../context/mainContext";
 import { mainInStorage, storage } from "../interfaces/storage";
+import { Entry } from "../interfaces/podcastList";
 
 type method = 'GET'|'POST'|'PUT'|'DELETE';
 interface getFetch {data:any,isLoading:boolean,error:any}
@@ -8,13 +9,34 @@ type flag = 'main'|'podcast'|'track';
 interface fetchArgument {route:string,method?:method,body?:any,headers?:any,flag?:flag|undefined}
 const defaultArgument:fetchArgument = {route:'',method:'GET',body:undefined,headers:undefined,flag:undefined}
 
+/*
+let list:podcastProps[] = data.map( (x:Entry) => ({
+                id:x.id.label,
+                name:x["im:name"].label,
+                author:x["im:artist"].label,
+                pic:x["im:image"][x["im:image"].length - 1].label
+            }));
+*/
+
 const storageSave = (data:any,flag:flag|undefined,setState:React.Dispatch<React.SetStateAction<getFetch>>) => {
+    if(!data){ return }
     switch(flag){
-        case 'main' :
-            const finalData = data.feed.entry ;
+        case 'main' : {
+            const finalData = data.feed.entry.map( (x:Entry) => ({
+                id:x.id.attributes["im:id"],
+                name:x["im:name"].label,
+                author:x["im:artist"].label,
+                pic:x["im:image"][x["im:image"].length - 1].label,
+                summary:x["summary"].label
+            }));
             setState({data:finalData,isLoading:false,error:null}) ;
             localStorage.setItem('main',JSON.stringify({date:new Date(),storage:finalData})) ;
+        }
         ; break ;
+        case 'podcast' : {
+            const finalData = data.results ;
+            setState({data:finalData,isLoading:false,error:null});
+        }
         default : break ;
     }
 };

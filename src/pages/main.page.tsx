@@ -26,13 +26,7 @@ const Main = () => {
 
         setList(v => {
             if(data == null){return []}
-            let list:podcastProps[] = data.map( (x:Entry) => ({
-                id:x.id.label,
-                name:x["im:name"].label,
-                author:x["im:artist"].label,
-                pic:x["im:image"][x["im:image"].length - 1].label
-            }));
-            list = list.filter(x => {
+            let list = data.filter( (x:podcastProps) => {
                 const name = x.name.toLowerCase();
                 const author = x.author.toLowerCase();
                 const input = formState.value.trim().toLowerCase();

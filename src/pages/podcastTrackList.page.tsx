@@ -1,6 +1,9 @@
-
 import PodcastDetail from '../layout/PodcastDetail';
+import useFetchHook from "../hooks/useFetch.hook";
 import '../pages/styles/podcastDetail.sass'
+import { podcastProps } from '../component/main/podcast.component';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 //Description : Summary -> label
 interface episodes { name:string , link:string , date:Date , duration:string }
@@ -26,9 +29,16 @@ const episodesPlaceholder = ():episodes[] => {
     return array;
 }
 
-const PodcastTrackList = ({id}:{id?:string}) => {
+//https://itunes.apple.com/lookup?id=1535809341&media=podcast&entity=podcastEpisode
+const PodcastTrackList = () => {
+    
+    const episodes = episodesPlaceholder();
 
-    const episodes = episodesPlaceholder()
+    /*const { data , isLoading } = useFetchHook({
+        route:`https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode`,
+        flag:'podcast'
+    })*/
+
 
     return(
         <PodcastDetail>

@@ -1,5 +1,8 @@
 import Podcaster from "./Podcaster" ;
 import '../pages/styles/podcastDetail.sass' ;
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { podcastProps } from "../component/main/podcast.component";
 
 //Description : Summary -> label
 interface episodes { name:string , link:string , date:Date , duration:string }
@@ -34,33 +37,41 @@ const podcastInDetailPlaceholder:podcastInDetail = {
 
 const PodcastDetail = ({children}:any) => {
 
-    const { pic , name , artist , description } = podcastInDetailPlaceholder ;
+    const { podcastid } = useParams();
+    const [ podcast ] = useState<podcastProps|undefined>(() => {
+        if(!localStorage.getItem('main')){ return undefined };
+        const object = JSON.parse(`${localStorage.getItem('main')}`).storage.filter( (x:any) => x.id == podcastid )[0] ;
+        if(!object){return undefined}else{return object}
+    }); 
 
     return(
-        <div className="container">
-            <Podcaster>
+        (podcast)
+        ?
+            <div className="container">
+                <Podcaster>
 
-                <div className="row my-5">
+                    <div className="row my-5">
 
-                    <div className="col-3 detail">
-                        <div className="detailCard">
-                            <img src={pic} alt="" />
-                            <hr />
-                            <div className="podcastAndArtist"><p className="podcast">{name}</p><p className="artist">by {artist}</p></div>
-                            <hr />
-                            <p className="description">
-                                <span>Description :</span><br />
-                                {description}
-                            </p>
+                        <div className="col-3 detail">
+                            <div className="detailCard">
+                                <img src={podcast.pic} alt="" />
+                                <hr />
+                                <div className="podcastAndArtist"><p className="podcast">{podcast.name}</p><p className="artist">by {podcast.author}</p></div>
+                                <hr />
+                                <p className="description">
+                                    <span>Description :</span><br />
+                                    {podcast.summary}
+                                </p>
+                            </div>
                         </div>
+
+                        <div className="col-9">{children}</div>
+
                     </div>
 
-                    <div className="col-9">{children}</div>
-
-                </div>
-
-            </Podcaster>
-        </div>
+                </Podcaster>
+            </div>
+        :<></>
     )
     
 }
