@@ -19,10 +19,12 @@ const Track = () => {
     return(
         <PodcastDetail>
             <div className="trackDetail">
+                
                 <p className="title">{title}</p><hr />
                 <p className="description">{description}</p>
                 <p className="sponsors">
-                    Sponsored by : <a href="">Lorem</a> , <a href="">Lorem</a> and <a href="">Lorem</a>
+                    Sponsored by :
+                    {(sponsors.map((x,i) => <a key={i} href={x.link}>{x.name}</a>))}
                 </p><hr />
 
             </div>

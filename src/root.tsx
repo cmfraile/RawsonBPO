@@ -4,6 +4,7 @@ import { BrowserRouter , Navigate , Routes , Route } from 'react-router-dom';
 import { mainProvider as MP } from './context/mainContext';
 import App from './component/App';
 
+import 'animate.css'
 import './root.sass';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
@@ -15,11 +16,11 @@ const AppWithRoute = () =>
     <Routes>
       <Route path=''  element={ <App/> }/>
       <Route path="*" element={ <Navigate to=''/> } />
-      <Route path='podcast' element={ <PodcastTrackList/> }/>
-      <Route path='track' element={ <Track/> }/>
+      <Route path="podcast/:podcastid" element={ <PodcastTrackList/> }/>
+      <Route path="podcast/:podcastid/episode/:episodeid" element={ <Track/> }/>
       
-      {/*<Route path='podcast/:podcastID' element={ <Navigate to=''/> } />
-      <Route path='podcast/:podcastID/episode/:episodeID' element={ <Navigate to=''/> } />*/}
+      {/*<Route path='podcast/:podcastid' element={ <Navigate to=''/> } />
+      <Route path='podcast/:podcastid/episode/:episodeid' element={ <Navigate to=''/> } />*/}
 
     </Routes>
   </BrowserRouter>
