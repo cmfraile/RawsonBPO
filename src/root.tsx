@@ -4,17 +4,21 @@ import { BrowserRouter , Navigate , Routes , Route } from 'react-router-dom';
 import { mainProvider as MP } from './context/mainContext';
 import App from './component/App';
 
-import './main.sass';
+import './root.sass';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '../node_modules/bootstrap/dist/js/bootstrap.min';
+import 'bootstrap/dist/js/bootstrap.min';
+import { PodcastDetail } from './pages';
 
 const AppWithRoute = () => 
   <BrowserRouter>
     <Routes>
       <Route path=''  element={ <App/> }/>
       <Route path="*" element={ <Navigate to=''/> } />
-      <Route path='podcast/:podcastID' element={ <Navigate to=''/> } />
-      <Route path='podcast/:podcastID/episode/:episodeID' element={ <Navigate to=''/> } />
+      <Route path='podcast' element={ <PodcastDetail/> }/>
+      
+      {/*<Route path='podcast/:podcastID' element={ <Navigate to=''/> } />
+      <Route path='podcast/:podcastID/episode/:episodeID' element={ <Navigate to=''/> } />*/}
+
     </Routes>
   </BrowserRouter>
 

@@ -1,16 +1,17 @@
-import { useState } from "react";
-import { Main , Detail , Podcast } from "../pages";
+import { useContext, useState } from "react";
+import { Main , Detail , PodcastDetail } from "../pages";
+import { appNavigate, mainContext } from "../context/mainContext";
 
-type appNavigate = 'main'|'podcastDetail'|'episodeDetail';
+
 const App = () => {
 
-  const [ navigate , setNavigate ] = useState<appNavigate>('main');
+  const { navigate } = useContext<{navigate:appNavigate}>(mainContext);
 
   const Render = () => {
     switch(navigate){
       case 'main' : return <Main/> ;
       case 'episodeDetail' : return <Detail/> ;
-      case 'podcastDetail' : return <Podcast/> ;
+      case 'podcastDetail' : return <PodcastDetail/> ;
       default : return <></> ;
     }
   }
