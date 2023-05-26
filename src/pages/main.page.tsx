@@ -6,9 +6,7 @@ import useFetchHook from "../hooks/useFetch.hook";
 import { podcastProps } from "../component/main/podcast.component";
 import { useEffect } from "react";
 import Podcaster from "../layout/Podcaster";
-
 import '../pages/styles/mainPage.sass'
-import { Entry } from "../interfaces/podcastList";
 
 const Main = () => {
 

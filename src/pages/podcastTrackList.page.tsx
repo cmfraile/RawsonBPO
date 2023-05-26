@@ -18,7 +18,7 @@ interface podcastInDetail {
 //https://itunes.apple.com/lookup?id=1535809341&media=podcast&entity=podcastEpisode
 const PodcastTrackList = () => {
 
-    //const { podcastid } = useParams();
+    const { podcastid } = useParams();
 
     const { data , isLoading } = useFetchHook({
         route:`https://itunes.apple.com/lookup?id=${podcastid}&media=podcast&entity=podcastEpisode`,
@@ -31,10 +31,13 @@ const PodcastTrackList = () => {
         const totalMinutes = Math.floor(totalSeconds / 60);
         const minutes = totalMinutes % 60;
         const hours = Math.floor(totalMinutes / 60);
-        return `${hours} : ${minutes} : ${seconds}`;
+        const toStringandAdd0 = (value:number) => (value <= 9) ? `0${value}` : value
+        return `${toStringandAdd0(hours)} : ${toStringandAdd0(minutes)} : ${toStringandAdd0(seconds)}`;
     }
 
     return(
+        (data)
+        ?
         <PodcastDetail>
             <div className="episodesList">
                 <div className="episodesCount">Episodes : {data.length}</div>
@@ -61,6 +64,7 @@ const PodcastTrackList = () => {
                 </div>
             </div>
         </PodcastDetail>
+        :<></>
     )
     
 }

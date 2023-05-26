@@ -36,7 +36,7 @@ const storageSave = (data:any,flag:flag|undefined,setState:React.Dispatch<React.
         ; break ;
         case 'podcast' : {
             const finalData = data.results.map( (x:Result) => ({
-                trackName:x.trackName,releaseDate:x.releaseDate,trackTimeMillis:x.trackTimeMillis
+                trackName:x.trackName,releaseDate:new Date(x.releaseDate),trackTimeMillis:x.trackTimeMillis
             })) ;
             setState({data:finalData,isLoading:false,error:null});
         }
