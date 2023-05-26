@@ -7,3 +7,5 @@ export interface storage {
 export interface mainInStorage extends storage {
     storage:podcastProps[]
 }
+
+export interface podcastInStorage extends storage {}

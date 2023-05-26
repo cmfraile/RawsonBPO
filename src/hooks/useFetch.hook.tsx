@@ -7,17 +7,8 @@ import { Result } from "../interfaces/podcastEpisodes";
 type method = 'GET'|'POST'|'PUT'|'DELETE';
 interface getFetch {data:any,isLoading:boolean,error:any}
 type flag = 'main'|'podcast'|'track';
-interface fetchArgument {route:string,method?:method,body?:any,headers?:any,flag?:flag|undefined}
+interface fetchArgument {route:string,method?:method,body?:any,headers?:any,flag?:flag|undefined,id?:string}
 const defaultArgument:fetchArgument = {route:'',method:'GET',body:undefined,headers:undefined,flag:undefined}
-
-/*
-let list:podcastProps[] = data.map( (x:Entry) => ({
-                id:x.id.label,
-                name:x["im:name"].label,
-                author:x["im:artist"].label,
-                pic:x["im:image"][x["im:image"].length - 1].label
-            }));
-*/
 
 const storageSave = (data:any,flag:flag|undefined,setState:React.Dispatch<React.SetStateAction<getFetch>>) => {
     if(!data){ return }
@@ -36,15 +27,29 @@ const storageSave = (data:any,flag:flag|undefined,setState:React.Dispatch<React.
         ; break ;
         case 'podcast' : {
             const finalData = data.results.map( (x:Result) => ({
-                trackName:x.trackName,releaseDate:new Date(x.releaseDate),trackTimeMillis:x.trackTimeMillis
+                artistId:x.artistId,trackName:x.trackName,releaseDate:new Date(x.releaseDate),trackTimeMillis:x.trackTimeMillis
             })) ;
             setState({data:finalData,isLoading:false,error:null});
+            const actualStorage:any|undefined = (localStorage.getItem('podcast')) ? JSON.parse(`${localStorage.getItem('podcast')}`) : undefined ;
+            const { artistId , trackName , releaseDate , trackTimeMillis } = finalData;
+            if(actualStorage){
+                const newStorage = {
+                    ...actualStorage,
+                    podcasts:{...actualStorage.podcasts,[artistId]:{ trackName , releaseDate , trackTimeMillis }}
+                };
+                localStorage.setItem('podcast',JSON.stringify(newStorage));
+            } else {
+                localStorage.setItem('podcast',JSON.stringify({
+                    date:new Date(),
+                    podcasts:{[artistId]:{ trackName , releaseDate , trackTimeMillis}}
+                }));
+            }
         }
         default : break ;
     }
 };
 
-const localOrNet = (flag:flag|undefined,setState:React.Dispatch<React.SetStateAction<getFetch>>,getFetch:() => void) => {
+const localOrNet = (flag:flag|undefined,setState:React.Dispatch<React.SetStateAction<getFetch>>,getFetch:() => void,id?:string) => {
         
     const compareDay = (storage:any):void => {
         const takeDay = (date:Date) => `${date.getDate}${date.getMonth}${date.getFullYear}`;
@@ -57,11 +62,17 @@ const localOrNet = (flag:flag|undefined,setState:React.Dispatch<React.SetStateAc
 
     switch(flag){
 
-        case 'main':
+        case 'main': {
             const mainCase:mainInStorage|undefined = ( localStorage.getItem('main') ) ? JSON.parse(`${localStorage.getItem('main')}`) : undefined ;
             if(mainCase == undefined){ getFetch() ; return } ;
             compareDay(mainCase) ;
-        ; break ;
+        } ; break ;
+
+        case 'podcast': {
+            const mainCase:any|undefined = ( localStorage.getItem('podcast') && id ) ? JSON.parse(`${localStorage.getItem('podcast')}`)[id] : undefined ;
+            if(mainCase == undefined){ getFetch() ; return };
+            compareDay(mainCase)
+        } ; break ;
 
         default : getFetch() ; break ;
 
@@ -69,7 +80,7 @@ const localOrNet = (flag:flag|undefined,setState:React.Dispatch<React.SetStateAc
 
 }
 
-const useFetch = ({route,method,body,headers,flag}:fetchArgument = {...defaultArgument}) => {
+const useFetch = ({route,method,body,headers,flag,id}:fetchArgument = {...defaultArgument}) => {
 
     const { setLoad } = useContext<{setLoad:(value:boolean) => void}>(mainContext)
 
@@ -84,7 +95,7 @@ const useFetch = ({route,method,body,headers,flag}:fetchArgument = {...defaultAr
 
     }
 
-    useEffect(() => { localOrNet(flag,setState,getFetch) },[route]);
+    useEffect(() => { localOrNet(flag,setState,getFetch,id) },[route]);
     useEffect(() => { setLoad(state.isLoading) },[state])
     
     return({...state,getFetch});
