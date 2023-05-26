@@ -23,8 +23,8 @@ const Track = () => {
                 <p className="title">{title}</p><hr />
                 <p className="description">{description}</p>
                 <p className="sponsors">
-                    Sponsored by :
-                    {(sponsors.map((x,i) => <a key={i} href={x.link}>{x.name}</a>))}
+                    Sponsored by : 
+                    {(sponsors.map((x,i) => <> <a key={i} href={x.link}>{x.name}</a> </> ))}
                 </p><hr />
 
             </div>

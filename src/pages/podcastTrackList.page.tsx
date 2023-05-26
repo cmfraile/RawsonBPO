@@ -2,7 +2,7 @@ import PodcastDetail from '../layout/PodcastDetail';
 import useFetchHook from "../hooks/useFetch.hook";
 import '../pages/styles/podcastDetail.sass'
 import { podcastProps } from '../component/main/podcast.component';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 //Description : Summary -> label
@@ -19,6 +19,7 @@ interface podcastInDetail {
 const PodcastTrackList = () => {
 
     const { podcastid } = useParams();
+    const nav = useNavigate() ; const { pathname } = useLocation()
 
     const { data , isLoading } = useFetchHook({
         route:`https://itunes.apple.com/lookup?id=${podcastid}&media=podcast&entity=podcastEpisode`,
@@ -34,6 +35,8 @@ const PodcastTrackList = () => {
         const toStringandAdd0 = (value:number) => (value <= 9) ? `0${value}` : value
         return `${toStringandAdd0(hours)} : ${toStringandAdd0(minutes)} : ${toStringandAdd0(seconds)}`;
     }
+
+    const onClickCallback = () => nav(`${pathname}/episode/lorem`);
 
     return(
         (data)
@@ -54,7 +57,7 @@ const PodcastTrackList = () => {
                         {data.map( (x:episodes,i:number) => 
                         (
                             <tr key={i}>
-                                <th><a href="">{x.trackName}</a></th>
+                                <th><a href="" onClick={onClickCallback}>{x.trackName}</a></th>
                                 <td>{`${x.releaseDate.getDay()} / ${x.releaseDate.getMonth()} / ${x.releaseDate.getFullYear()}`}</td>
                                 <td style={{textAlign:'center'}}>{msParser(x.trackTimeMillis)}</td>
                             </tr>
