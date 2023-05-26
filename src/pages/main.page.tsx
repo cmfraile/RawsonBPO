@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Podcaster from "../layout/Podcaster";
 
 import '../pages/styles/mainPage.sass'
+import { Entry } from "../interfaces/podcastList";
 
 const Main = () => {
 
@@ -16,6 +17,7 @@ const Main = () => {
 
     const { data , isLoading } = useFetchHook({
         route:'https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json',
+        flag:'main'
     })
 
     const [ list , setList ] = useState<podcastProps[]>([]);
@@ -24,11 +26,11 @@ const Main = () => {
 
         setList(v => {
             if(data == null){return []}
-            let list:podcastProps[] = data.feed.entry.map( (x:any) => ({
+            let list:podcastProps[] = data.map( (x:Entry) => ({
                 id:x.id.label,
                 name:x["im:name"].label,
                 author:x["im:artist"].label,
-                pic:x["im:image"][0].label
+                pic:x["im:image"][x["im:image"].length - 1].label
             }));
             list = list.filter(x => {
                 const name = x.name.toLowerCase();
