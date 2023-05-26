@@ -1,0 +1,78 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "RawsonBPO",
+    "dateExported": "2023-05-26T12:58:08.105Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "de600ddd-196c-46d0-a091-7b9e75c9190c",
+            "colId": "836d283d-a179-4eba-9e46-c904b5301420",
+            "containerId": "",
+            "name": "firstGet",
+            "url": "https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-05-25T11:11:05.514Z",
+            "modified": "2023-05-25T13:45:01.575Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "715f25ea-b70a-4514-801f-a60ab602b6ec",
+            "colId": "836d283d-a179-4eba-9e46-c904b5301420",
+            "containerId": "",
+            "name": "getPodcast",
+            "url": "https://itunes.apple.com/lookup?id=1535809341",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-05-25T16:29:07.006Z",
+            "modified": "2023-05-26T12:53:43.690Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "1535809341",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "242dcc6c-8815-4fbf-ae04-3c95a3d9da99",
+            "colId": "836d283d-a179-4eba-9e46-c904b5301420",
+            "containerId": "",
+            "name": "test",
+            "url": "https://itunes.apple.com/lookup?id=1535809341&media=podcast&entity=podcastEpisode&limit=10",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-05-26T10:05:24.483Z",
+            "modified": "2023-05-26T12:57:28.997Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "1535809341",
+                    "isPath": false
+                },
+                {
+                    "name": "media",
+                    "value": "podcast",
+                    "isPath": false
+                },
+                {
+                    "name": "entity",
+                    "value": "podcastEpisode",
+                    "isPath": false
+                },
+                {
+                    "name": "limit",
+                    "value": "10",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        }
+    ]
+}
