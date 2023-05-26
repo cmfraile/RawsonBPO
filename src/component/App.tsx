@@ -16,7 +16,7 @@ const App = () => {
     }
   }
 
-  return <div className="container">{Render()}</div> 
+  return <div className="container animate__animated animate__fadeIn">{Render()}</div> 
 
 }
 
