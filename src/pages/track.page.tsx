@@ -24,7 +24,7 @@ const Track = () => {
                 <p className="description">{description}</p>
                 <p className="sponsors">
                     Sponsored by : 
-                    {(sponsors.map((x,i) => <> <a key={i} href={x.link}>{x.name}</a> </> ))}
+                    {(sponsors.map((x,i) => <a key={i} href={x.link}>{x.name}</a> ))}
                 </p><hr />
 
             </div>

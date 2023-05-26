@@ -23,7 +23,8 @@ const PodcastTrackList = () => {
 
     const { data , isLoading } = useFetchHook({
         route:`https://itunes.apple.com/lookup?id=${podcastid}&media=podcast&entity=podcastEpisode`,
-        flag:'podcast'
+        flag:'podcast',
+        id:podcastid
     });
 
     const msParser = (ms: number): string => {

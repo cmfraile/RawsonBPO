@@ -10,8 +10,7 @@ type flag = 'main'|'podcast'|'track';
 interface fetchArgument {route:string,method?:method,body?:any,headers?:any,flag?:flag|undefined,id?:string}
 const defaultArgument:fetchArgument = {route:'',method:'GET',body:undefined,headers:undefined,flag:undefined}
 
-const storageSave = (data:any,flag:flag|undefined,setState:React.Dispatch<React.SetStateAction<getFetch>>) => {
-    console.log(data)
+const storageSave = (data:any,flag:flag|undefined,setState:React.Dispatch<React.SetStateAction<getFetch>>,id?:string) => {
     if(!data){ return }
     switch(flag){
         case 'main' : {
@@ -27,28 +26,29 @@ const storageSave = (data:any,flag:flag|undefined,setState:React.Dispatch<React.
         }
         ; break ;
     
+
         case 'podcast' : {
-            const finalData = data.results.map( (x:Result) => ({
-                artistId:x.artistId,trackName:x.trackName,releaseDate:new Date(x.releaseDate),trackTimeMillis:x.trackTimeMillis
+            if(!id){return};
+            const finalData:any[] = data.results.map( (x:Result) => ({
+                trackName:x.trackName,releaseDate:new Date(x.releaseDate),trackTimeMillis:x.trackTimeMillis
             })) ;
             setState({data:finalData,isLoading:false,error:null});
-            /*
-            const actualStorage:any|undefined = (localStorage.getItem('podcast')) ? JSON.parse(`${localStorage.getItem('podcast')}`) : undefined ;
-            const { artistId , trackName , releaseDate , trackTimeMillis } = finalData;
+            const actualStorage:any|undefined = (localStorage.getItem('podcast') && id) ? JSON.parse(`${localStorage.getItem('podcast')}`) : undefined ;
             if(actualStorage){
                 const newStorage = {
                     ...actualStorage,
-                    podcasts:{...actualStorage.podcasts,[artistId]:{ trackName , releaseDate , trackTimeMillis }}
+                    podcasts:{...actualStorage.podcasts,[id]:finalData}
                 };
                 localStorage.setItem('podcast',JSON.stringify(newStorage));
             } else {
                 localStorage.setItem('podcast',JSON.stringify({
                     date:new Date(),
-                    podcasts:{[artistId]:{ trackName , releaseDate , trackTimeMillis}}
+                    podcasts:{[id]:finalData}
                 }));
             }
-            */
+
         }
+
         default : break ;
     }
 };
@@ -72,13 +72,12 @@ const localOrNet = (flag:flag|undefined,setState:React.Dispatch<React.SetStateAc
             compareDay(mainCase) ;
         } ; break ;
 
-        /*
+        
         case 'podcast': {
-            const mainCase:any|undefined = ( localStorage.getItem('podcast') && id ) ? JSON.parse(`${localStorage.getItem('podcast')}`)[id] : undefined ;
-            if(mainCase == undefined){ getFetch() ; return };
-            compareDay(mainCase)
+            getFetch() ;
         } ; break ;
-        */
+        
+
 
         default : getFetch() ; break ;
 
@@ -96,12 +95,12 @@ const useFetch = ({route,method,body,headers,flag,id}:fetchArgument = {...defaul
 
         setState({...state,isLoading:true});
         await(await fetch(`${route}`,{method,mode:'cors',body,headers})).json()
-        .then(data => { storageSave(data,flag,setState) })
+        .then(data => { storageSave(data,flag,setState,id) })
         .catch(error => {setState({data:null,isLoading:false,error}) });
 
     }
 
-    useEffect(() => { localOrNet(flag,setState,getFetch) },[route]);
+    useEffect(() => { localOrNet(flag,setState,getFetch,id) },[route]);
     useEffect(() => { setLoad(state.isLoading) },[state])
     
     return({...state,getFetch});
